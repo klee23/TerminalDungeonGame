@@ -19,6 +19,7 @@ add_library(
 add_executable(${PROJECT_NAME} main.cpp)
 
 add_executable(CharacterTest tests/CharacterTest.cpp)
+add_executable(WizardTest tests/WizardTest.cpp)
 
 target_link_libraries(
     ${PROJECT_NAME}
@@ -40,6 +41,22 @@ target_include_directories(
         ${CMAKE_SOURCE_DIR}/src
 )
 
+
+target_link_libraries(
+    WizardTest
+    PRIVATE
+    TerminalDungeonGameLib
+    GTest::gtest_main
+)
+
+target_include_directories(
+    WizardTest
+    PRIVATE
+        ${CMAKE_SOURCE_DIR}/header
+        ${CMAKE_SOURCE_DIR}/src
+)
+
+
 target_include_directories(
     TerminalDungeonGameLib
     PUBLIC
@@ -52,3 +69,4 @@ enable_testing()
 include(GoogleTest)
 
 gtest_discover_tests(CharacterTest)
+gtest_discover_tests(WizardTest)

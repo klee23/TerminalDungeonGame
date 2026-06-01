@@ -1,0 +1,31 @@
+#include "Goblin.h"
+#include "Character.h"
+#include <stdexcept>
+
+int ValidateNonNegative(int value, std::string_view fieldName)
+{
+    if (value < 0)
+    {
+        throw std::invalid_argument(
+            std::string(fieldName) + " cannot be less than zero!");
+    }
+
+    return value;
+}
+
+
+Goblin::Goblin(std::string name, int hp, int attack, int armor, int strength, int speed) :
+Character(name, hp, attack),
+armor_(ValidateNonNegative(armor, "Armor")),
+strength_(ValidateNonNegative(strength, "Strength")),
+speed_(ValidateNonNegative(speed, "Speed")) {
+    // nothign
+}
+
+int Goblin::calculateDamageTaken(int damage) const{
+    return std::max(damage - ( std::min(armor_, 5) ), 0);
+}
+
+int Goblin::getAttackDamage() const noexcept{
+    return Character::getAttackDamage() + strength_;
+}

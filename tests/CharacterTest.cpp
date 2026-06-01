@@ -14,3 +14,11 @@ TEST(CharacterTest, negative_damage_test){
     Character player("Player", 100, 12);
     EXPECT_THROW(player.takeDamage(-5), std::invalid_argument); 
 }
+
+
+TEST(CharacterTest, damage_test){
+
+    Character player("Player", 100, 12);
+    player.takeDamage(5);
+    EXPECT_TRUE(player.getHealth()==95); 
+}

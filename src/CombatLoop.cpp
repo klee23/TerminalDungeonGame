@@ -8,10 +8,10 @@ void CombatLoop::doCombat(Character& char1, Character& char2){
     int counter = 0;
     while( char1.isAlive() && char2.isAlive() ){
         // char 1 attack char2
-        char2.takeDamage(char1.attack() );
+        char2.takeDamage(char1.getAttackDamage() );
         // char 2 attack char 1
         if(char2.isAlive() ){
-            char1.takeDamage(char2.attack());
+            char1.takeDamage(char2.getAttackDamage());
         }
         // combat limit.
         if(counter++ > 10000){

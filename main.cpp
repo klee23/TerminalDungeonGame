@@ -18,13 +18,11 @@ int main(int, char**){
         std::cout << player.getStatus() ;
         std::cout << monster.getStatus() ;
     
-    } catch(std::runtime_error e){
+    } catch(std::runtime_error& e){
         std::cerr << e.what() << std::endl;
     }
     catch(...){
         std::cerr << "CAUGHT unknown error." << std::endl;
     }
-    
-
 
 }
