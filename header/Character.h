@@ -1,6 +1,6 @@
 #pragma once
 #include <string>
-#include <vector>
+#include "CharacterType.h"
 
 class Character
 {
@@ -8,13 +8,15 @@ public:
     Character(std::string name, int hp, int attack);
     virtual ~Character() = default;
 
-    void takeDamage(int damage);
-    virtual int getAttackDamage() const noexcept;
-    bool isAlive() const ;
+    void defend(int damage);
+    virtual int attack() const noexcept;
 
+    bool isAlive() const ;
     int getHealth() const noexcept;
     const std::string& getName() const noexcept;
     std::string getStatus() const;
+
+    virtual CharacterType getType() const = 0;
 
 protected:
     virtual int calculateDamageTaken(int) const;

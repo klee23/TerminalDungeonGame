@@ -10,6 +10,8 @@ public:
         int hp,
         int attack,
         int armor);
+    
+    CharacterType getType() const override;
 
 protected:
     int calculateDamageTaken(int damage) const override;

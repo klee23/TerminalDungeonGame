@@ -1,5 +1,6 @@
 #pragma once
 #include "Character.h"
+#include "CharacterType.h"
 #include <string_view>
 
 class Goblin : public Character {
@@ -7,7 +8,9 @@ public:
     Goblin(std::string, int, int, int, int, int);
 
     int calculateDamageTaken(int damage) const override;
-    int getAttackDamage() const noexcept override;
+    int attack() const noexcept override;
+
+    CharacterType getType() const override;
 
 private:
     int armor_;

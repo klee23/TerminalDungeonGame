@@ -1,4 +1,5 @@
 #include "Warrior.h"
+#include "CharacterType.h"
 
 #include <stdexcept>
 
@@ -33,4 +34,8 @@ int Warrior::validateArmor(int armor)
     }
 
     return armor;
+}
+
+CharacterType Warrior::getType() const {
+    return CharacterType::Warrior;
 }

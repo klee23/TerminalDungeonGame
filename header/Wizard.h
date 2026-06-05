@@ -11,8 +11,10 @@ public:
 
     int GetMana() const noexcept;
 
-    void CastSpell();
-    int getAttackDamage() const noexcept override;
+    void CastSpell(); 
+    int consumeManaChargedAttack();
+    int attack() const noexcept override;
+    CharacterType getType() const override;
 
 protected:
     int calculateDamageTaken(int damage) const override;

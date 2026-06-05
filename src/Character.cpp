@@ -9,7 +9,6 @@
 
 
 int Character::validateHealth(int hp){
-    assert(hp > 0);
     if(hp<=0){
         throw std::invalid_argument("Health cannot be zero or less!");
     }
@@ -38,7 +37,7 @@ Character::Character(std::string name, int hp, int attack)
      attack_(validateAttack(attack)) {}
 
 // a Template Method...
-void Character::takeDamage(int damage) {
+void Character::defend(int damage) {
     if(damage < 0){
         throw std::invalid_argument("Cannot deal negative damage!");
     }
@@ -58,7 +57,7 @@ bool Character::isAlive() const { return (health_ >= 1); }
 
 int Character::getHealth() const noexcept { return health_; }
 
-int Character::getAttackDamage() const noexcept { return attack_; }
+int Character::attack() const noexcept { return attack_; }
 
 const std::string& Character::getName() const noexcept { return name_; }
 

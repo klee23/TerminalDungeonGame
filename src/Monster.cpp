@@ -1,5 +1,6 @@
 #include "Monster.h"
 #include "Character.h"
+#include "CharacterType.h"
 #include <algorithm>
 #include <stdexcept>
 
@@ -25,6 +26,14 @@ Monster::Monster(std::string name, int hp, int attack, int armor, int strength) 
 }
 
 int Monster::calculateDamageTaken(int damage) const {
-    damage = std::max(damage - 1, 0); // can't do negative damage.
+    damage = std::max(damage - armor_, 0);; // can't do negative damage.
     return damage;
+}
+
+int Monster::attack() const noexcept{
+    return static_cast<int>(Character::attack() * (strength_*0.5));
+}
+
+CharacterType Monster::getType() const{
+    return CharacterType::Monster;
 }

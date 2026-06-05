@@ -1,4 +1,5 @@
 #include "Wizard.h"
+#include "CharacterType.h"
 
 #include <string>
 #include <stdexcept>
@@ -30,11 +31,21 @@ void Wizard::CastSpell()
     }
 }
 
+int Wizard::consumeManaChargedAttack(){
+    int damage = attack();
+    mana_ = 0; // consume all mana!
+    return damage;
+}
+
 int Wizard::calculateDamageTaken(int damage) const
 {
     return damage;
 }
 
-int Wizard::getAttackDamage() const noexcept {
-    return Character::getAttackDamage()*(1+charged_mana_);
+int Wizard::attack() const noexcept {
+    return Character::attack()*(1+charged_mana_);
+}
+
+CharacterType Wizard::getType() const{
+    return CharacterType::Wizard;
 }

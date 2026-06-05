@@ -6,8 +6,9 @@ public:
     Monster(std::string, int, int, int, int);
 
     int calculateDamageTaken(int damage) const override;
-    int getAttackDamage() const noexcept override;
-
+    int attack() const noexcept override;
+    CharacterType getType() const override;
+    
 private:
     int armor_;
     int strength_;
