@@ -1,7 +1,10 @@
 #include "Monster.h"
 #include "Character.h"
 #include "CharacterType.h"
+#include "HealthiestTargetStratgey.h"
+
 #include <algorithm>
+#include <memory>
 #include <stdexcept>
 
 int Monster::validateArmor(int armor){
@@ -22,7 +25,12 @@ Monster::Monster(std::string name, int hp, int attack, int armor, int strength) 
     Character(name, hp, attack) , 
     armor_(validateArmor(armor)), 
     strength_(validateStrength(strength)) {
-    // ?????
+    Character::setTargetStrategy( std::move(std::make_unique<HealthiestTargetStratgey>()));
+}
+
+
+Character* Monster::selectTarget(std::vector<std::unique_ptr<Character>>& targets) const {
+    return Character::getTargetStrategy()->getTarget(*this, targets);
 }
 
 int Monster::calculateDamageTaken(int damage) const {
@@ -37,3 +45,4 @@ int Monster::attack() const noexcept{
 CharacterType Monster::getType() const{
     return CharacterType::Monster;
 }
+

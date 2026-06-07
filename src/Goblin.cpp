@@ -1,6 +1,7 @@
 #include "Goblin.h"
 #include "Character.h"
 #include "CharacterType.h"
+#include "HealthiestTargetStratgey.h"
 #include <stdexcept>
 
 int Goblin::ValidateNonNegative(int value, std::string_view fieldName)
@@ -19,7 +20,7 @@ Character(name, hp, attack),
 armor_(ValidateNonNegative(armor, "Armor")),
 strength_(ValidateNonNegative(strength, "Strength")),
 speed_(ValidateNonNegative(speed, "Speed")) {
-    // nothign
+    Character::setTargetStrategy( std::move(std::make_unique<HealthiestTargetStratgey>()));
 }
 
 int Goblin::calculateDamageTaken(int damage) const{
@@ -32,4 +33,8 @@ int Goblin::attack() const noexcept{
 
 CharacterType Goblin::getType() const{
     return CharacterType::Goblin;
+}
+
+Character* Goblin::selectTarget(std::vector<std::unique_ptr<Character>>& targets) const {
+    return Character::getTargetStrategy()->getTarget(*this, targets);
 }

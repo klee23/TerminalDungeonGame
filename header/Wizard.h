@@ -15,6 +15,7 @@ public:
     int consumeManaChargedAttack();
     int attack() const noexcept override;
     CharacterType getType() const override;
+    Character* selectTarget(std::vector<std::unique_ptr<Character>>& targets) const override;
 
 protected:
     int calculateDamageTaken(int damage) const override;

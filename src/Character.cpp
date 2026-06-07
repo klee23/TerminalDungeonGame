@@ -1,8 +1,11 @@
 #include "Character.h"
+#include "ITargetStrategy.h"
+#include "HealthiestTargetStratgey.h"
 
 #include <assert.h>
 #include <algorithm>
 #include <iostream>
+#include <memory>
 #include <sstream>
 #include <stdexcept>
 #include <string>
@@ -34,7 +37,9 @@ std::string Character::validateName(std::string name){
 Character::Character(std::string name, int hp, int attack)
     : name_(validateName(name)),
      health_(validateHealth(hp)),
-     attack_(validateAttack(attack)) {}
+     attack_(validateAttack(attack)) 
+{   
+}
 
 // a Template Method...
 void Character::defend(int damage) {
@@ -51,6 +56,14 @@ void Character::defend(int damage) {
 
 int Character::calculateDamageTaken(int damage) const {
     return damage;
+}
+
+void Character::setTargetStrategy(std::unique_ptr<ITargetStrategy> tss){
+    tss_ = std::move(tss);
+}
+
+const std::unique_ptr<ITargetStrategy>& Character::getTargetStrategy() const {
+    return tss_;
 }
 
 bool Character::isAlive() const { return (health_ >= 1); }

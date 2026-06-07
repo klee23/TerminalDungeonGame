@@ -1,5 +1,6 @@
 #include "Wizard.h"
 #include "CharacterType.h"
+#include "HealthiestTargetStratgey.h"
 
 #include <string>
 #include <stdexcept>
@@ -16,6 +17,7 @@ Wizard::Wizard(std::string name, int hp, int attack, int mana)
     , mana_(validateMana(mana))
     , charged_mana_(0)
 {
+    Character::setTargetStrategy( std::move(std::make_unique<HealthiestTargetStratgey>()));
 }
 
 int Wizard::GetMana() const noexcept
@@ -48,4 +50,9 @@ int Wizard::attack() const noexcept {
 
 CharacterType Wizard::getType() const{
     return CharacterType::Wizard;
+}
+
+
+Character* Wizard::selectTarget(std::vector<std::unique_ptr<Character>>& targets) const {
+    return Character::getTargetStrategy()->getTarget(*this, targets);
 }
