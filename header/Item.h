@@ -5,14 +5,18 @@
 class Item{
 public:
     Item(int, ItemType);
-    ~Item() = default;
+    virtual ~Item() = default;
 
-    const int getValue() noexcept;
-    const ItemType getType() noexcept;
+    int getValue() const noexcept;
+    ItemType getType() const noexcept;
+
+protected:
+    static int validateLTETZeroValue(int);
 
 private:
-    int value_; // const?
-    ItemType type_; // const?
+    const int value_; 
+    const ItemType type_; 
 
     static const int validateValue(int);
+
 };

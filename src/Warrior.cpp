@@ -1,6 +1,8 @@
 #include "Warrior.h"
+#include "Character.h"
 #include "CharacterType.h"
 #include "HealthiestTargetStratgey.h"
+#include "Weapon.h"
 
 #include <stdexcept>
 
@@ -13,6 +15,16 @@ Warrior::Warrior(
     , armor_(validateArmor(armor))
 {
     Character::setTargetStrategy( std::move(std::make_unique<HealthiestTargetStratgey>()));
+}
+
+int Warrior::attack() const noexcept {
+    Weapon* weap = inventory_.getStrongestWeapon();
+    int totalDamage = Character::attack();
+    if(weap){
+        totalDamage += inventory_.getStrongestWeapon()->getAttackValue();
+    } 
+    
+    return totalDamage;
 }
 
 int Warrior::calculateDamageTaken(int damage) const

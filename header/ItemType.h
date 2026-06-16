@@ -7,6 +7,7 @@ enum class ItemType{
     Potion,
     Money,
     Junk,
+    Armor,
     Food
 };
 
@@ -26,6 +27,10 @@ constexpr std::string_view toString(ItemType type){
     
     case ItemType::Food:
         return "Food";
+
+    case ItemType::Armor:
+        return "Armor";
+
     }// switch
 
     return "Unknown";

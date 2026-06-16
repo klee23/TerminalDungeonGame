@@ -14,6 +14,9 @@ add_subdirectory(external/googletest)
 add_library(
     TerminalDungeonGameLib
     ${SOURCE_FILES}
+    src/Consumable.cpp
+    header/ClosestToDyingTarStrat.h
+    src/ClosestToDyingTarStrat.cpp
 )
 
 add_executable(${PROJECT_NAME} main.cpp)

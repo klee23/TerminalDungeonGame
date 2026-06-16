@@ -11,6 +11,7 @@ public:
         int attack,
         int armor);
     
+    int attack() const noexcept override;
     CharacterType getType() const override;
     Character* selectTarget(std::vector<std::unique_ptr<Character>>& targets) const override;
 

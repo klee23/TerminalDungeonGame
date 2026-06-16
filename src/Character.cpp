@@ -37,13 +37,12 @@ std::string Character::validateName(std::string name){
 }
 
 Character::Character(std::string name, int hp, int attack, int inven_size)
-    : inventory_size_(inven_size),
+    : inventory_(inven_size),
      name_(validateName(name)),
      health_(validateHealth(hp)),
      attack_(validateAttack(attack) ) 
 {   
-    // todo put into constructor
-    inventory_ = std::make_unique<Inventory>(10);
+    
 }
 
 // a Template Method...
@@ -60,16 +59,19 @@ void Character::defend(int damage) {
 }
 
 bool Character::addToInventory(std::unique_ptr<Item>&& item){
-    return inventory_->addItem(std::move(item));
-}
-    
-std::unique_ptr<Item> Character::takeFirstFromInventory(){
-    // try???
-    return std::move(inventory_->getItem());
+    return inventory_.addItem(std::move(item));
 }
 
+std::optional<size_t> Character::findFirstItemType(ItemType type) const{
+    return inventory_.findFirstItemType(type);
+}
+
+std::unique_ptr<Item> Character::extractItemById(int id){
+    return std::move(inventory_.extractItemById(id));
+}
 
 int Character::calculateDamageTaken(int damage) const {
+
     return damage;
 }
 

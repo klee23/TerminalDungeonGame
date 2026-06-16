@@ -25,11 +25,13 @@ public:
     std::string getStatus() const;
 
     bool addToInventory(std::unique_ptr<Item>&&);
-    std::unique_ptr<Item> takeFirstFromInventory();
+    std::optional<size_t> findFirstItemType(ItemType type) const;
+    std::unique_ptr<Item> extractItemById(int id);
 
 protected:
     virtual int calculateDamageTaken(int) const;
     const std::unique_ptr<ITargetStrategy>& getTargetStrategy() const; // return just ITargetStrategy
+    Inventory inventory_;
 
 private:
     std::unique_ptr<ITargetStrategy> tss_;
@@ -37,7 +39,6 @@ private:
     int attack_; 
     int health_; 
     int inventory_size_;
-    std::unique_ptr<Inventory> inventory_;
 
     static int validateHealth(int hp);
     static int validateAttack(int attack);
