@@ -24,7 +24,7 @@ int Orc::calculateDamageTaken(int damage) const {
     Armor* armor = inventory_.getStrongestArmor();
     int damageTaken = Character::calculateDamageTaken(damage);
     if(armor){
-        damageTaken =  std::min( damageTaken - static_cast<int>((armor->getDefenseValue()*0.5)), 0);
+        damageTaken =  std::max( damageTaken - static_cast<int>((armor->getDefenseValue()*0.5)), 0);
     }
 
     return damageTaken;
