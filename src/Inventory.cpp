@@ -19,7 +19,6 @@ const int Inventory::validateMaxCapacity(int cap){
 }
 
 Inventory::Inventory(int cap) : maxCapacity_(validateMaxCapacity(cap)){ 
-    inventory_;
 }
 
 bool Inventory::addItem(std::unique_ptr<Item>&& item){
@@ -46,7 +45,11 @@ std::optional<size_t> Inventory::findFirstItemType(ItemType type) const{
 
 
 std::unique_ptr<Item> Inventory::extractItemById(int id){
-    // TODO: throw? if id > capacity?
+    
+    if(id > maxCapacity_){
+        throw std::out_of_range("Cannot get item, out of range.");
+    }
+
     auto rv = std::move(inventory_[id]);
     inventory_.erase(inventory_.begin() + id);
 
@@ -58,10 +61,6 @@ Weapon* Inventory::getStrongestWeapon() const{
     Weapon* strongest_weapon = nullptr;
 
     for(auto& item : inventory_){
-        if(item->getType() != ItemType::Weapon){
-            continue;
-        }
-
         auto* curr_weap = dynamic_cast<Weapon*>(item.get());
 
         if(strongest_weapon == nullptr || 
@@ -78,10 +77,6 @@ Armor* Inventory::getStrongestArmor() const{
     Armor* strongest_armor = nullptr;
 
     for(auto& item : inventory_){
-        if(item->getType() != ItemType::Armor){
-            continue;
-        }
-
         Armor* curr_armor =dynamic_cast<Armor*>(item.get());
 
         if(strongest_armor == nullptr || 

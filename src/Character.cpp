@@ -38,9 +38,10 @@ std::string Character::validateName(std::string name){
 
 Character::Character(std::string name, int hp, int attack, int inven_size)
     : inventory_(inven_size),
+     bAlive_(true),
      name_(validateName(name)),
      health_(validateHealth(hp)),
-     attack_(validateAttack(attack) ) 
+     attack_(validateAttack(attack)) 
 {   
     
 }
@@ -55,7 +56,7 @@ void Character::defend(int damage) {
     // reduce health.
     health_ = std::max(health_ - damage_done, 0);
     // check for death
-    bool bAlive = isAlive();
+    bAlive_ = isAlive();
 }
 
 bool Character::addToInventory(std::unique_ptr<Item>&& item){
@@ -67,7 +68,7 @@ std::optional<size_t> Character::findFirstItemType(ItemType type) const{
 }
 
 std::unique_ptr<Item> Character::extractItemById(int id){
-    return std::move(inventory_.extractItemById(id));
+    return inventory_.extractItemById(id);
 }
 
 int Character::calculateDamageTaken(int damage) const {
@@ -83,7 +84,7 @@ const std::unique_ptr<ITargetStrategy>& Character::getTargetStrategy() const {
     return tss_;
 }
 
-bool Character::isAlive() const { return (health_ >= 1); }
+bool Character::isAlive() const { return (health_ > 1); }
 
 int Character::getHealth() const noexcept { return health_; }
 

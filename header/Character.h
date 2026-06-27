@@ -39,6 +39,7 @@ private:
     int attack_; 
     int health_; 
     int inventory_size_;
+    bool bAlive_;
 
     static int validateHealth(int hp);
     static int validateAttack(int attack);

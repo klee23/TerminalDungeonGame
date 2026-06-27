@@ -6,18 +6,30 @@
 #include <algorithm>
 
 Orc::Orc(std::string name, int hp, int attack)
-    : Character(std::move(name), hp, attack)
+    : equiped_weapon_(nullptr), Character(std::move(name), hp, attack)
 {
     Character::setTargetStrategy( std::move(std::make_unique<HealthiestTargetStratgey>()));
 }
 
 int Orc::attack() const noexcept
 {
-    return static_cast<int>(Character::attack() * 1.5);
+    int attack_dmg = static_cast<int>(Character::attack() * 1.5);
+    if(equiped_weapon_){
+        attack_dmg += equiped_weapon_->getAttackValue();
+    }
+    return attack_dmg;
 }
 
 CharacterType Orc::getType() const {
     return CharacterType::Orc;
+}
+
+void Orc::equipWeapon(){
+    equiped_weapon_ = inventory_.getStrongestWeapon();
+}
+
+void Orc::removeWeapon(){
+    equiped_weapon_ = nullptr;
 }
 
 int Orc::calculateDamageTaken(int damage) const {
